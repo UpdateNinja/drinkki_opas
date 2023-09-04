@@ -1,3 +1,5 @@
+
+
 <div style="display: inline-block; vertical-align: middle;">
     <svg viewBox="0 0 1000 200" class='rating' width="40%">
         <defs>

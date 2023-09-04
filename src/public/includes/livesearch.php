@@ -1,6 +1,8 @@
 <?php
 include("config.php");
 session_start(); // Start the session
+include("starrating.php");
+
 
 $id_array_current = array();
 $id_array_previous = array();
@@ -59,8 +61,8 @@ if (isset($_POST['input'])) {
                                 <td><?php echo $title ?></td>
                                 <td><?php echo $body ?></td>
                                 <td>
-                                    <?php include("starrating.php"); ?>
-                                    <button onclick="openPopup('<?php echo $title ?>')" id="<?php echo $id ?>">Anna arvostelu</button>
+                                <?php getStarRating($id,$con); ?>
+                                    <button style="margin-top:10px"; onclick="openPopup('<?php echo $title ?>')" id="<?php echo $id ?>">Anna arvostelu</button>
                                 </td>
                                 <!-- Button to trigger the pop-up -->
 
@@ -88,6 +90,9 @@ if (isset($_POST['input'])) {
 } else {
     echo "<h6 class='text-center mt-3'>Hakusanaa ei ole asetettu.</h6>";
 }
+
+
+
 ?>
 
 <body>
@@ -105,7 +110,7 @@ if (isset($_POST['input'])) {
         <textarea id="comment" name="comment" rows="4" cols="50"></textarea><br>
 
         <?php include("star_rating.php"); ?>
-        <button onclick="sendReview()">Lähetä arvostelu</button>
+        <button id="review_send" onclick="sendReview()">Lähetä arvostelu</button>
         <span onclick="closePopup()" class="close-button topright">&times</span>
     </div>
 

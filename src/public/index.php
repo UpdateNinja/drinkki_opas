@@ -10,7 +10,7 @@ require __DIR__ . '/../../vendor/autoload.php';
 <html>
 
 <head>
-    <title>Drinkki Ppas</title>
+    <title>Drinkki Opas</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styling.css"> <!-- Add this line -->
 
