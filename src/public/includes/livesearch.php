@@ -109,7 +109,7 @@ if (isset($_POST['input'])) {
 
         <textarea id="comment" name="comment" rows="4" cols="50"></textarea><br>
 
-        <?php include("star_rating.php"); ?>
+        <?php place_star_rating(0,true); ?>
         <button id="review_send" onclick="sendReview()">Lähetä arvostelu</button>
         <span onclick="closePopup()" class="close-button topright">&times</span>
     </div>

@@ -26,6 +26,7 @@ require __DIR__ . '/../../vendor/autoload.php';
             background-color: #ffffff;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
             z-index: 99;
+            width: 600px;
         }
 
         /* Styling for the overlay background */

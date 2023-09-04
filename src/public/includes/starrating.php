@@ -6,7 +6,7 @@
             overflow-y: scroll;
             border: 1px solid #ccc;
             padding: 10px;
-            margin:20px;
+            margin: 20px;
         }
 
         /* Style the list items */
@@ -71,14 +71,40 @@ function getStarRating($drinkId, $con)
 
     <p style="font-weight: 600" ;>Arviot (<?php echo $review_amount; ?>)</p>
     <div class="scrollable-list">
-    <ul>
-        <?php foreach($datalist as $row): ?>
-            <li>
-                <strong><?php echo $row["name"]; ?>:</strong> <?php echo $row["comment"]; ?> <?php echo $row["rating"];?>/5
-            </li>
-        <?php endforeach; ?>
-    </ul>
-</div>
+        <ul>
+            <?php foreach ($datalist as $row) : ?>
+                <li>
+                    <strong><?php echo $row["name"]; ?>:</strong> <?php echo $row["comment"]; ?> <?php echo $row["rating"]; ?>/5
+                    <?php place_star_rating($row["rating"], false); ?>
+
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+
+    <?php place_star_rating($average_rating, false); ?>
+    <style>
+        .rating-label,
+        .rating_qty {
+            display: inline-block;
+            padding-top: 5px;
+        }
+
+
+        #review_send {
+            margin: 20px 20px 20px 20px;
+
+        }
+    </style>
+
+<?php
+
+}
+
+function place_star_rating($rating_number, $isInput)
+{
+
+?>
 
     <div class="left" style="display: flex; vertical-align: middle;">
         <svg viewBox="0 0 1000 200" class='rating' width="20%">
@@ -103,7 +129,7 @@ function getStarRating($drinkId, $con)
             <rect class='rating__background' clip-path="url(#star-clip)"></rect>
 
             <!-- Change the width of this rect to change the rating -->
-            <rect width="<?php echo ($average_rating * 20) ?>%" class="rating__value" clip-path="url(#star-clip)" id="ratingRect"></rect>
+            <rect width="<?php echo ($rating_number * 20) ?>%" class="rating__value" clip-path="url(#star-clip)" id="ratingRect"></rect>
 
 
             <!-- Individual star elements with border color, hover effect, and scale transformation -->
@@ -113,25 +139,47 @@ function getStarRating($drinkId, $con)
             <use xlink:href="#star" x="60%" class="star" />
             <use xlink:href="#star" x="80%" class="star" />
 
+            <?php
+            if ($isInput == true) {
+            ?>
+
+                <!-- Individual star elements with border color, hover effect, and scale transformation -->
+                <use xlink:href="#star" class="star_rating" />
+                <use xlink:href="#star" x="20%" class="star_rating" />
+                <use xlink:href="#star" x="40%" class="star_rating" />
+                <use xlink:href="#star" x="60%" class="star_rating" />
+                <use xlink:href="#star" x="80%" class="star_rating" />
+
+                <!-- Individual invisible rectangles positioned over each star -->
+                <rect class="invisible-rect" x="0" y="0" width="22%" height="200" />
+                <rect class="invisible-rect" x="20%" y="0" width="22%" height="200" />
+                <rect class="invisible-rect" x="40%" y="0" width="22%" height="200" />
+                <rect class="invisible-rect" x="60%" y="0" width="22%" height="200" />
+                <rect class="invisible-rect" x="80%" y="0" width="22%" height="200" />
+            <?php
+            } else {
+            ?>
+                <!-- Individual star elements with border color, hover effect, and scale transformation -->
+                <use xlink:href="#star" class="star" />
+                <use xlink:href="#star" x="20%" class="star" />
+                <use xlink:href="#star" x="40%" class="star" />
+                <use xlink:href="#star" x="60%" class="star" />
+                <use xlink:href="#star" x="80%" class="star" />
+
+            <?php
+            }
+            ?>
+
         </svg>
-        <p class="right"> <?php echo number_format($average_rating, 1); ?>
-        <p>
+        <?php
+            if ($isInput == false) {
+            ?>
+        <p class="right"> <?php echo number_format($rating_number, 1); ?>
+        <?php
+            }
+            ?>
 
     </div>
-    <style>
-        .rating-label,
-        .rating_qty {
-            display: inline-block;
-            padding-top: 5px;
-        }
-
-
-        #review_send{
-margin:20px 20px 20px 20px;
-
-}
-
-    </style>
 
 <?php
 
