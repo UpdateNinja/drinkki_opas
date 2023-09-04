@@ -1,0 +1,135 @@
+/* Remove the default focus outline */
+
+.table-image {
+  max-width: 300px;
+  max-height: 300px;
+  width: 300px;
+  height: 300px;
+
+
+}
+
+
+
+h1 {
+  font-size: 70px;
+  font-weight: 600;
+  color: #ffffff;
+  text-shadow: 0px 0px 5px #7a8ec4, 0px 0px 10px #7ecad4, 0px 0px 10px #6498b6,
+    0px 0px 5px #2790aa;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+
+svg {
+  margin-bottom: 0em;
+}
+
+.rating__background {
+  fill: #000000;
+  stroke: red;
+  stroke-width: 1;
+  height: 100%;
+  width: 100%;
+}
+
+.rating__value {
+  fill: #FFB94B;
+  height: 100%;
+}
+
+.star {
+  fill: rgba(0, 0, 0, 0);
+}
+
+.star_rating.gold {
+  fill: gold;
+  /* Fill color for gold stars */
+
+}
+
+
+
+.invisible-rect {
+  fill: rgba(0, 0, 0, 0);
+  z-index: 100;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd)>* {
+  --bs-table-accent-bg: rgba(235, 235, 235, 0.68);
+  color: var(--bs-table-striped-color);
+}
+
+.table>:not(caption)>*>* {
+  padding: 0.5rem 0.5rem;
+  background-color: #e0e0e0be;
+  border-bottom-width: 1px;
+  box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+}
+
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  /* Ensure the body takes at least the full viewport height */
+  margin: 0;
+  background-color: #6498b6;
+}
+
+main {
+  flex-grow: 1;
+  /* Expand to fill remaining vertical space */
+}
+
+/* Your other styles here */
+
+/* Footer styles */
+footer {
+  background-color: white;
+  padding: 20px;
+  height: 200px;
+}
+
+.table-bordered>:not(caption)>*>* {
+  border: 2px solid white;
+
+}
+
+.left {
+  margin:0;
+}
+
+.right{
+  margin:0;
+}
+
+.close-button {
+  border: none;
+  display: inline-block;
+  padding: 8px 16px;
+  vertical-align: middle;
+  overflow: hidden;
+  text-decoration: none;
+  color: black;
+  background-color: inherit;
+  text-align: center;
+  cursor: pointer;
+  white-space: nowrap;
+  font-size: 30px;
+}
+
+.topright {
+  position: absolute;
+  right: 0;
+  top: 0
+}
