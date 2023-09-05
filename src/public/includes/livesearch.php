@@ -2,10 +2,12 @@
 include("config.php");
 session_start(); // Start the session
 include("starrating.php");
+include("Drink.php");
 
 
 $id_array_current = array();
 $id_array_previous = array();
+$search_list = array();
 
 // Set session variables
 $_SESSION['id_array_current'] = $id_array_current;
@@ -47,28 +49,31 @@ if (isset($_POST['input'])) {
                     <tbody>
                         <?php
                         while ($row = mysqli_fetch_assoc($result)) {
-                            $id = $row['id'];
-                            $id_array_current[] = $id;
-                            $image_url = $row['image_url'];
-                            $title = $row['drink_name'];
-                            $body = $row['descr'];
-                            $rating = $row['rating'];
-                            $rating_qty = $row['rating_qty'];
+                            $search_list[] = new Drink($row['id'], $row['drink_name'],$row['image_url'], $row['descr']);
+                        }
+
+                        foreach ($search_list as $drink) {
                         ?>
-                            <tr class="drink" id=<?php echo $id ?>>
-                                <td><?php echo $id ?></td>
-                                <th><img src="<?php echo $image_url ?>" alt="Image Alt Text" class="table-image"></th>
-                                <td><?php echo $title ?></td>
-                                <td><?php echo $body ?></td>
+
+                            <tr class="drink" id=<?php echo $drink->get_id() ?>>
+                                <td><?php echo $drink->get_id() ?></td>
+                                <th><img src="<?php echo $drink->get_image_url() ?>" alt="Image Alt Text" class="table-image"></th>
+                                <td><?php echo $drink->get_name() ?></td>
+                                <td><?php echo $drink->get_instruction() ?></td>
+                                
                                 <td>
-                                <?php getStarRating($id,$con); ?>
-                                    <button style="margin-top:10px"; onclick="openPopup('<?php echo $title ?>')" id="<?php echo $id ?>">Anna arvostelu</button>
+                                    <?php getStarRating($drink->get_id(), $con); ?>
+                                    <button style="margin-top:10px" ; onclick="openPopup('<?php echo $drink->get_name() ?>')" id="<?php echo $drink->get_id() ?>">Anna arvostelu</button>
                                 </td>
                                 <!-- Button to trigger the pop-up -->
 
                             </tr>
+
                         <?php
+
+
                         }
+
                         ?>
 
 
@@ -109,7 +114,7 @@ if (isset($_POST['input'])) {
 
         <textarea id="comment" name="comment" rows="4" cols="50"></textarea><br>
 
-        <?php place_star_rating(0,true); ?>
+        <?php place_star_rating(0, true); ?>
         <button id="review_send" onclick="sendReview()">Lähetä arvostelu</button>
         <span onclick="closePopup()" class="close-button topright">&times</span>
     </div>
@@ -215,7 +220,7 @@ if (isset($_POST['input'])) {
                 rating: rating_number,
                 id: buttonId,
                 name: fname,
-                review_comment : comment,
+                review_comment: comment,
 
             };
 
