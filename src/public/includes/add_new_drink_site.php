@@ -6,7 +6,14 @@ unset($_SESSION['uploadedFilePath']);
 <head>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<title>Drinkki Opas</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/styling.css"> <!-- Add this line -->
+
 </head>
+
+<body>
 
 <!-- The pop-up content -->
 <div id="popup" class="popup">
@@ -23,7 +30,7 @@ unset($_SESSION['uploadedFilePath']);
     <textarea id="receipt" name="receipt" rows="4" cols="50"></textarea><br>
 
     <!-- File input for uploading an image -->
-    <input type="file" id="myfile" name="myfile"><br>
+    <input type="file" accept=".jpeg, .jpg, .bmp, .png" id="myfile" name="myfile"><br>
 
     <button type="button" id="uploadButton">Upload File</button>
 
@@ -33,6 +40,11 @@ unset($_SESSION['uploadedFilePath']);
     <button id="send_new_drink" onclick="sendnewDrink()">Lisää juoma</button>
 
 </div>
+
+
+
+<?php require 'footer.php'; ?>
+</body>
 
 
 
@@ -97,7 +109,7 @@ unset($_SESSION['uploadedFilePath']);
                         $("#uploadResult").html(response);
                     },
                     error: function(error) {
-                        console.error("Error:", error);
+                        console.error("Error :", error);
                     }
                 });
             });

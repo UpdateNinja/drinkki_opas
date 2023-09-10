@@ -7,7 +7,7 @@
                 <ul>
                     <li><a href="http://localhost/src/public/index.php">Etusivu</a></li>
                     <li><a href="#">Tietoa sivusta</a></li>
-                    <li><a href="#">Lisää drinkki</a></li>
+                    <li><a href="http://localhost/src/public/includes/add_new_drink_site.php">Lisää drinkki</a></li>
                     <li><a href="#">Ota yhteyttä</a></li>
                 </ul>
             </div>

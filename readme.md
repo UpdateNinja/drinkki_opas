@@ -6,3 +6,6 @@ Changed livesearch drinks to object oriented and created Drink.php class
 
 1.03
 Added functions for adding new drinks.
+
+1.04
+Allowed filetypes for upload file, file name using drink_image + date + random integer format. 

@@ -3,6 +3,16 @@
 // Store the file path in a session variable
 session_start();
 
+date_default_timezone_set('Europe/Bucharest'); // Change to your specific timezone
+
+// Get the current timestamp in GMT+2 timezone
+$currentTimestamp = time();
+
+// Format the timestamp as "Day/Month/Year"
+$formattedDate = date('d_m_Y_h_i_s', $currentTimestamp);
+
+$allowedTypes = array('image/jpeg', 'image/jpg', 'image/png', 'image/bmp');
+
 
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -19,8 +29,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Check if the file was uploaded without errors
     if ($_FILES["myfile"]["error"] === UPLOAD_ERR_OK) {
+
+        $fileType = mime_content_type($_FILES['myfile']['tmp_name']); // Get the MIME type of the uploaded file
+        
+
         $targetDir = "uploads/";
-        $targetFile = $targetDir . basename($_FILES["myfile"]["name"]);
+        $targetFile = $targetDir . 'drink_image_' . $formattedDate ."_" . random_int(0,PHP_INT_MAX);
+
+        if (in_array($fileType, $allowedTypes)) {
 
         // Check if the file already exists
         if (file_exists($targetFile)) {
@@ -37,6 +53,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 echo "Error uploading file.";
             }
         }
+    } else{
+        echo 'Invalid file type. Only JPEG, JPG, PNG, and BMP images are allowed.';
+    }
+
     } else {
         // Display a more descriptive error message based on the error code
         if (isset($uploadErrors[$_FILES["myfile"]["error"]])) {
