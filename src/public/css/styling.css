@@ -83,7 +83,8 @@ body {
   min-height: 100vh;
   /* Ensure the body takes at least the full viewport height */
   margin: 0;
-  background-color: #6498b6;
+  overflow-y: scroll;
+  
 }
 
 main {
@@ -93,12 +94,7 @@ main {
 
 /* Your other styles here */
 
-/* Footer styles */
-footer {
-  background-color: white;
-  padding: 20px;
-  height: 200px;
-}
+
 
 .table-bordered>:not(caption)>*>* {
   border: 2px solid white;
@@ -132,5 +128,32 @@ footer {
   position: absolute;
   right: 0;
   top: 0
+}
+
+.drink_add input[name="fname"]{
+  width: 500px;
+  align-self: center;
+  
+}
+
+
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  background-color: #fff;
+}
+
+.modern-table th, .modern-table td {
+  padding: 1rem;
+  text-align: center;
+}
+
+.modern-table thead {
+  background-color: bg-light;
+  color: #000000;
+}
+
+.modern-table tbody tr:nth-child(odd) {
+  background-color: #f2f2f2;
 }
 

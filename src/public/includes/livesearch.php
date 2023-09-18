@@ -5,13 +5,9 @@ include("starrating.php");
 include("Drink.php");
 
 
-$id_array_current = array();
-$id_array_previous = array();
+
 $search_list = array();
 
-// Set session variables
-$_SESSION['id_array_current'] = $id_array_current;
-$_SESSION['id_array_previous'] = $id_array_previous;
 
 if (isset($_POST['input'])) {
     $input = $_POST['input'];
@@ -35,25 +31,30 @@ if (isset($_POST['input'])) {
 
             if (mysqli_num_rows($result) > 0) {
 ?>
-
-                <table class="table table-bordered table-striped mt-4">
+                <div>
+                <table class="table table-bordered table-striped modern-table">
                     <thead>
                         <tr>
-                            <th style="width: 100px;">Numero</th>
-                            <th style="width: 200px;">Kuva</th>
-                            <th style="width: 200px;">Juoma</th>
-                            <th style="width: 700px;">Ohjeet</th>
-                            <th>Arvosana</th>
+                            <th class="rounded-start" style="width: 10%;">Numero</th>
+                            <th style="width: 20%;">Kuva</th>
+                            <th style="width: 10%;">Juoma</th>
+                            <th style="width: 20%;">Ohjeet</th>
+                            <th style="width: 40%;" class="rounded-end">Arvosana</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
                         while ($row = mysqli_fetch_assoc($result)) {
                             $search_list[] = new Drink($row['id'], $row['drink_name'],$row['image_url'], $row['descr']);
+
+                            
+
                         }
 
                         foreach ($search_list as $drink) {
                         ?>
+
+                        
 
                             <tr class="drink" id=<?php echo $drink->get_id() ?>>
                                 <td><?php echo $drink->get_id() ?></td>
@@ -63,14 +64,14 @@ if (isset($_POST['input'])) {
                                 
                                 <td>
                                     <?php getStarRating($drink->get_id(), $con); ?>
-                                    <button style="margin-top:10px" ; onclick="openPopup('<?php echo $drink->get_name() ?>')" id="<?php echo $drink->get_id() ?>">Anna arvostelu</button>
+                                    <button style="margin-top:10px" class="btn btn-outline-success" ; onclick="openPopup('<?php echo $drink->get_name() ?>')" id="<?php echo $drink->get_id() ?>">Anna arvostelu</button>
                                 </td>
                                 <!-- Button to trigger the pop-up -->
 
                             </tr>
 
                         <?php
-
+                            
 
                         }
 
@@ -79,6 +80,7 @@ if (isset($_POST['input'])) {
 
                     </tbody>
                 </table>
+                </div>
 <?php
             } else {
                 echo "<h6 class='text-center mt-3'>Ei ole!</h6>";
@@ -95,7 +97,6 @@ if (isset($_POST['input'])) {
 } else {
     echo "<h6 class='text-center mt-3'>Hakusanaa ei ole asetettu.</h6>";
 }
-
 
 
 ?>

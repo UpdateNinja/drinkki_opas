@@ -47,21 +47,9 @@ require __DIR__ . '/../../vendor/autoload.php';
 
 <body>
 
-    <div class="container" style="max-width: 50%;">
+<?php require 'includes/header.php'; ?>
 
-
-
-        <div class="text-center mt-5 mb-4">
-            <h1>Drinkki Opas</h1>
-        </div>
-
-        <input type="text" class="form-control" id="live_search" autocomplete="off" placeholder="Etsi juomaa ... ">
-
-
-    </div>
-
-
-
+ 
     <div id="searchresult"></div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>

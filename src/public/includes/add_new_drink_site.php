@@ -5,9 +5,9 @@ unset($_SESSION['uploadedFilePath']);
 
 <head>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<title>Drinkki Opas</title>
+    <title>Drinkki Opas</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/styling.css"> <!-- Add this line -->
 
@@ -15,35 +15,39 @@ unset($_SESSION['uploadedFilePath']);
 
 <body>
 
-<!-- The pop-up content -->
-<div id="popup" class="popup">
-    <h2>Lisää juoma</h2>
+<?php require 'header.php'; ?>
 
-
-    <label for="fname">Juoman nimi:</label><br>
-    <input type="text" id="fname" name="fname"><br>
+    <div class="container" style="max-width: 30%;">
 
 
 
-    <label for="receipt">Resepti:</label><br>
+        <div class="text-center mt-5 mb-4">
+            <h1>Lisää juoma</h1>
+        </div>
 
-    <textarea id="receipt" name="receipt" rows="4" cols="50"></textarea><br>
+        <input type="text" class="form-control" id="fname" name="fname" placeholder="Juoman nimi">
 
-    <!-- File input for uploading an image -->
-    <input type="file" accept=".jpeg, .jpg, .bmp, .png" id="myfile" name="myfile"><br>
+        <textarea id="receipt" class="form-control" name="receipt" rows="4" cols="50" placeholder="Kirjoita juoman resepti"></textarea>
 
-    <button type="button" id="uploadButton">Upload File</button>
+        <input type="file" class="form-control" accept=".jpeg, .jpg, .bmp, .png" id="myfile" name="myfile"><br>
 
-    <div id="uploadResult"></div>
+        <button type="button" class="form-control" id="uploadButton">Lähetä kuvatiedosto</button>
 
+        <div id="uploadResult"></div>
 
-    <button id="send_new_drink" onclick="sendnewDrink()">Lisää juoma</button>
-
-</div>
+        <button id="send_new_drink" class="form-control" onclick="sendnewDrink()">Lisää juoma</button>
 
 
+    </div>
 
-<?php require 'footer.php'; ?>
+    <main>
+
+
+    </main>
+
+
+
+    <?php require 'footer.php'; ?>
 </body>
 
 
@@ -90,29 +94,28 @@ unset($_SESSION['uploadedFilePath']);
     }
 
     $(document).ready(function() {
-            $("#uploadButton").click(function() {
-                // Create a FormData object to collect file data
-                var formData = new FormData();
+        $("#uploadButton").click(function() {
+            // Create a FormData object to collect file data
+            var formData = new FormData();
 
-                // Append the file from the file input
-                formData.append("myfile", $("#myfile")[0].files[0]);
+            // Append the file from the file input
+            formData.append("myfile", $("#myfile")[0].files[0]);
 
-                // Send the file data to the server using AJAX
-                $.ajax({
-                    url: "upload.php",
-                    type: "POST",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function(response) {
-                        // Handle the response from the server here
-                        $("#uploadResult").html(response);
-                    },
-                    error: function(error) {
-                        console.error("Error :", error);
-                    }
-                });
+            // Send the file data to the server using AJAX
+            $.ajax({
+                url: "upload.php",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    // Handle the response from the server here
+                    $("#uploadResult").html(response);
+                },
+                error: function(error) {
+                    console.error("Error :", error);
+                }
             });
         });
-
+    });
 </script>

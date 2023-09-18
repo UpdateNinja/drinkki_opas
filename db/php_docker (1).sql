@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db:3306
--- Generation Time: 03.09.2023 klo 19:01
+-- Generation Time: 18.09.2023 klo 17:57
 -- Palvelimen versio: 8.1.0
 -- PHP Version: 8.2.8
 
@@ -85,7 +85,29 @@ INSERT INTO `reviews` (`review_id`, `drink_id`, `review_rating`, `review_comment
 (17, 1, 2, 'This is a great drink.', '[object HTMLInputElement]', 0),
 (18, 1, 3, 'This is a great drink.', 'rarara', 0),
 (19, 1, 3, 'This is a great drink.', 'vellu', 0),
-(20, 1, 1, 'Maistui kissan karvoille onkohan mauno ollut valmistamassa juomaa', 'Senkkinen', 0);
+(20, 1, 1, 'Maistui kissan karvoille onkohan mauno ollut valmistamassa juomaa', 'Senkkinen', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Rakenne taululle `users`
+--
+
+CREATE TABLE `users` (
+  `id` int NOT NULL,
+  `username` varchar(25) NOT NULL,
+  `email` varchar(25) NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `hashedpassword` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Vedos taulusta `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `hashedpassword`) VALUES
+(9, 'VelluSoi', 'vellu43@gmail.com', 'f2669fa0383c6c8b75d857393b321cbb86e282f7d07e8f106ffb67400d27b9aa', ''),
+(10, 'VelluSoi', 'vellu43@gmail.com', 'ed8779a2222dc578f2cffbf308411b41381a94ef25801f9dfbe04746ea0944cd', '$2y$10$dVVedSQVNEWyeqVLLpvIVuI4I7r6N5fX.rs1Y8IjtyXlJ20gpdTlm');
 
 --
 -- Indexes for dumped tables
@@ -104,6 +126,12 @@ ALTER TABLE `reviews`
   ADD PRIMARY KEY (`review_id`);
 
 --
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -118,6 +146,12 @@ ALTER TABLE `php_docker_table`
 --
 ALTER TABLE `reviews`
   MODIFY `review_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
