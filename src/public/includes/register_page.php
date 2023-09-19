@@ -9,7 +9,7 @@ session_start();
     <title>Drinkki Opas</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/styling.css"> <!-- Add this line -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsSHA/2.3.1/sha256.js"></script>
+   
 
 </head>
 
@@ -67,17 +67,11 @@ session_start();
         var password_element = document.getElementById("password");
         var password = password_element.value;
 
-
-        // Hash the password using SHA-256
-        var sha256 = new jsSHA("SHA-256", "TEXT");
-        sha256.update(password);
-        var hashedPassword = sha256.getHash("HEX");
-
         var data = {
 
             username: user_name,
             email: email,
-            password: hashedPassword,
+            password: password,
 
 
 

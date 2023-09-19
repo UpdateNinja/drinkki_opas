@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db:3306
--- Generation Time: 18.09.2023 klo 17:57
+-- Generation Time: 19.09.2023 klo 18:25
 -- Palvelimen versio: 8.1.0
 -- PHP Version: 8.2.8
 
@@ -106,8 +106,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `hashedpassword`) VALUES
-(9, 'VelluSoi', 'vellu43@gmail.com', 'f2669fa0383c6c8b75d857393b321cbb86e282f7d07e8f106ffb67400d27b9aa', ''),
-(10, 'VelluSoi', 'vellu43@gmail.com', 'ed8779a2222dc578f2cffbf308411b41381a94ef25801f9dfbe04746ea0944cd', '$2y$10$dVVedSQVNEWyeqVLLpvIVuI4I7r6N5fX.rs1Y8IjtyXlJ20gpdTlm');
+(18, 'testaaja', 'heheheheheh@gmail.com', 'testi124!R', '$2y$10$jkd.lYODR0.aS3qL3XGnb.GDD2qsCN6.EQEC1D5YiZHtafd6PSKL2');
 
 --
 -- Indexes for dumped tables
@@ -151,7 +150,7 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

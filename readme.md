@@ -12,3 +12,6 @@ Allowed filetypes for upload file, file name using drink_image + date + random i
 
 1.05
 Added user register page with password hashing on client and serverside. Added sql table for users.
+
+1.06
+Added user register page username, email and password preg match check.
