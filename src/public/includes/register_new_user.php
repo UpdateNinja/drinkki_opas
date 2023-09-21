@@ -12,7 +12,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    die("Yhteysvirhe: " . $conn->connect_error);
 }
 
 $data = json_decode(file_get_contents("php://input")); // Get JSON data from request
@@ -28,22 +28,40 @@ $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 $pattern = '/^[a-zA-Z0-9]{5,}$/';
 
 if (!preg_match($pattern, $username)) {
-    $error .="Username is invalid <br>";
-}
-
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $error .= "Email is invalid <br>";
-
-}
-
-if (strlen($password) < 8) {
-    $error .= "Password must be at least 8 characters long.";
+    $error .="Käyttäjänimi on virheellinen <br>";
+}elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $error .= "Sähköposti on virheellinen <br>";
+}elseif (strlen($password) < 8) {
+    $error .= "Salasanan pitää olla vähintään 8 merkkiä.";
 } elseif (!preg_match('/[A-Z]/', $password) || !preg_match('/[a-z]/', $password) || !preg_match('/[0-9]/', $password) || !preg_match('/[^A-Za-z0-9]/', $password)) {
-    $error .= "Password must include at least one uppercase letter, one lowercase letter, one number, and one special character.";
+    $error .= "Salasanan tulee sisältää iso kirjain, erikoismerkki ja numero.";
 } elseif (preg_match('/\bsalasana\b/i', $password) || preg_match('/\b123\b/', $password)) {
-    $error .= "Password is too common or weak.";
+    $error .= "Salasana sisältää yleisiä sanoja tai on heikko.";
 } else {
-    // Password is valid; proceed with registration
+
+    
+        $query = "SELECT * FROM users WHERE username LIKE ? OR email LIKE ?";
+    
+        $stmt = mysqli_prepare($conn, $query);
+        mysqli_stmt_bind_param($stmt, "ss", $username,$email);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+    
+    
+        if(mysqli_num_rows($result) > 0){
+            while ($row = mysqli_fetch_assoc($result)) {
+                
+                if($row['username'] == $username){
+                    $error .= $username . ' on jo käytössä.<br>';
+                } elseif($row['email'] == $email){
+                    $error .= $email . ' on jo käytössä.<br>';
+                }
+                
+
+            }
+            
+        }
+
 }
 
 if (!empty($error)){
@@ -62,9 +80,9 @@ $stmt->bind_param("ssss",$username,$email,$password,$hashedPassword);
 
 // Execute the statement
 if ($stmt->execute()) {
-    echo "New record inserted successfully.";
+    echo "Uusi käyttäjä rekisteröity.";
 } else {
-    echo "Error: " . $stmt->error;
+    echo "Virhe: " . $stmt->error;
 }
 
 // Close the prepared statement and the database connection

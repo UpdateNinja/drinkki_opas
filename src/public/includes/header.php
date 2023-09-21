@@ -177,14 +177,14 @@
   <nav class="py-2 bg-body-tertiary bg-light border-bottom">
     <div class="container d-flex flex-wrap">
       <ul class="nav me-auto">
-        <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2 active" aria-current="page">Etusivu</a></li>
+        <li class="nav-item"><a href="http://localhost/src/public/index.php" class="nav-link link-body-emphasis px-2 active" aria-current="page">Etusivu</a></li>
         <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">Arvostelut</a></li>
         <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">Hinnoittelu</a></li>
         <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">FAQs</a></li>
         <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">Tietoa</a></li>
       </ul>
       <ul class="nav ">
-        <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">Kirjaudu</a></li>
+        <li class="nav-item"><a href="http://localhost/src/public/includes/login_page.php" class="nav-link link-body-emphasis px-2">Kirjaudu</a></li>
         <li class="nav-item"><a href="http://localhost/src/public/includes/register_page.php" class="nav-link link-body-emphasis px-2">Rekisteröidy</a></li>
       </ul>
     </div>
