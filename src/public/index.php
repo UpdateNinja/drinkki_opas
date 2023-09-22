@@ -1,7 +1,10 @@
 <?php
 
+session_start();
 
 require __DIR__ . '/../../vendor/autoload.php';
+require 'includes/header.php'; 
+
 
 
 ?>
@@ -9,10 +12,11 @@ require __DIR__ . '/../../vendor/autoload.php';
 <!DOCTYPE html>
 <html>
 
+
+
 <head>
     <title>Drinkki Opas</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/styling.css"> <!-- Add this line -->
+    
 
     <style>
         /* Styling for the pop-up */
@@ -47,7 +51,7 @@ require __DIR__ . '/../../vendor/autoload.php';
 
 <body>
 
-<?php require 'includes/header.php'; ?>
+
 
  
     <div id="searchresult"></div>

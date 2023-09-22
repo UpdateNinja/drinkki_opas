@@ -18,3 +18,6 @@ Added user register page username, email and password preg match check.
 
 1.07
 Check if username or email is already taken.
+
+1.08
+Login logic for users and $session test

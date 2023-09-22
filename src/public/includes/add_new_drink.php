@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+
 $uploadedFilePath = $_SESSION['uploadedFilePath']; // Get the uploaded file path
 // Use $uploadedFilePath in your SQL query or other operations
 

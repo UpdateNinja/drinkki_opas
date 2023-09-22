@@ -1,15 +1,7 @@
 <?php
-session_start();
 ?>
 
 <head>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <title>Drinkki Opas</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/styling.css"> <!-- Add this line -->
-   
 
 </head>
 
@@ -32,7 +24,7 @@ session_start();
 
         <div id="resultMessage"></div>
 
-        <button id="send_new_drink" class="form-control" onclick="sendnewRegister()">Kirjaudu sisään</button>
+        <button id="send_new_drink" class="form-control" onclick="login()">Kirjaudu sisään</button>
 
 
     </div>
@@ -51,15 +43,11 @@ session_start();
 
 
 <script>
-    function sendnewRegister() {
+    function login() {
 
         //Get username from input element "username"
         var user_name_element = document.getElementById("username");
         var user_name = user_name_element.value;
-
-        //Get email from input element "email"
-        var email_element = document.getElementById("email");
-        var email = email_element.value;
 
         //Get password from input element "password"
         var password_element = document.getElementById("password");
@@ -68,14 +56,13 @@ session_start();
         var data = {
 
             username: user_name,
-            email: email,
             password: password,
 
 
 
         };
 
-        fetch('register_new_user.php', {
+        fetch('login.php', {
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: {
