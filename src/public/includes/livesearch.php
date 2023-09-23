@@ -4,10 +4,7 @@ session_start(); // Start the session
 include("starrating.php");
 include("Drink.php");
 
-
-
 $search_list = array();
-
 
 if (isset($_POST['input'])) {
     $input = $_POST['input'];
@@ -16,10 +13,11 @@ if (isset($_POST['input'])) {
 
     if (preg_match($pattern, $input)) {
         // Use prepared statements to prevent SQL injection
-        $query = "SELECT * FROM php_docker_table WHERE drink_name LIKE ? AND approved = 1";
+        $query = "SELECT * FROM drinks WHERE drink_name LIKE ? AND approved = 1";
         $input = '%' . $input . '%'; // Add wildcards for a partial match
 
         if ($stmt = mysqli_prepare($con, $query)) {
+
             // Bind the input parameter
             mysqli_stmt_bind_param($stmt, "s", $input);
 

@@ -107,7 +107,7 @@
   <footer class="py-3 my-4">
     <ul class="nav justify-content-center border-bottom pb-3 mb-3">
       <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Etusivu</a></li>
-      <li class="nav-item"><a href="http://localhost/src/public/includes/add_new_drink_site.php" class="nav-link px-2 text-body-secondary">Lisää uusi juoma</a></li>
+      <li class="nav-item"><a href="http://localhost/src/public/add_new_drink_site.php" class="nav-link px-2 text-body-secondary">Lisää uusi juoma</a></li>
       <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Hinnoittelu</a></li>
       <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
       <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Tietoa</a></li>

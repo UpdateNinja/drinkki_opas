@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 $servername = "drinkki_opas-db-1";
 $username = "php_docker";
 $password = "password";
@@ -43,7 +45,8 @@ if (!preg_match($pattern, $username)) {
         if (password_verify($password, $hashedPasswordFromDatabase)) {
             $error.= "Kirjautuminen onnistui.";
 
-            session_start();
+            //Regenerating new session id after success login - > to add more security for page.
+            session_regenerate_id(true);
             $_SESSION['username'] = $username;
         } else {
             $error.= "Käyttäjä tai salasana on väärin.";

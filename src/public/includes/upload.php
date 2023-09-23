@@ -49,6 +49,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $serverHost = $_SERVER['HTTP_HOST'];
                 $fullURL = $protocol . $serverHost . "/src/public/includes/" . $targetFile;
                 $_SESSION['uploadedFilePath'] = $fullURL; // $filePath is the file path obtained in upload.php
+
+                $drinkname = $_POST['name'];
+                $drink_descr = $_POST['descr'];
+
             } else {
                 echo "Error uploading file.";
             }
@@ -66,3 +70,38 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
     }
 }
+
+$servername = "drinkki_opas-db-1";
+$username = "php_docker";
+$password = "password";
+$dbname = "php_docker";
+
+// Create a connection to the MySQL database
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Prepare the INSERT statement
+
+$sql = "INSERT INTO drinks (image_url,drink_name,descr) VALUES (?,?,?)";
+
+// Create a prepared statement
+$stmt = $conn->prepare($sql);
+
+// Bind the parameters and set their values
+$stmt->bind_param("sss",$fullURL,$drinkname,$drink_descr);
+
+// Execute the statement
+if ($stmt->execute()) {
+    echo "New record inserted successfully.";
+} else {
+    echo "Error: " . $stmt->error;
+}
+
+// Close the prepared statement and the database connection
+$stmt->close();
+$conn->close();
+?>

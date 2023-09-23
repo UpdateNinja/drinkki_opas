@@ -1,5 +1,4 @@
-<?php
-?>
+<?php require 'includes/header.php'; ?>
 
 <head>
 
@@ -7,7 +6,7 @@
 
 <body>
 
-    <?php require 'header.php'; ?>
+    
 
 
     <div class="container" style="max-width: 30%;">
@@ -36,7 +35,7 @@
 
 
 
-    <?php require 'footer.php'; ?>
+    <?php require 'includes/footer.php'; ?>
 </body>
 
 
@@ -62,7 +61,7 @@
 
         };
 
-        fetch('login.php', {
+        fetch('includes/login.php', {
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: {
@@ -74,6 +73,13 @@
                 console.log('Response from server:', data);
                 var resultMessageElement = document.getElementById("resultMessage");
                 resultMessageElement.innerHTML = data;
+
+                if (data == "Kirjautuminen onnistui."){
+                    console.log('juu');
+                    window.location.href = 'index.php'; // Redirect to the homepage
+                  
+                }
+
             })
             .catch(error => {
                 console.error('Error:', error);

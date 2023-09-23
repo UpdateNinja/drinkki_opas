@@ -21,3 +21,8 @@ Check if username or email is already taken.
 
 1.08
 Login logic for users and $session test
+
+1.09
+Code cleaning, combining drink upload function.
+Added php session logic for users and debugging problems.
+Drink image preview function into add new drink site.

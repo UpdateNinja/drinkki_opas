@@ -1,9 +1,8 @@
 <?php
-
-session_start();
+require 'includes/header.php'; 
 
 require __DIR__ . '/../../vendor/autoload.php';
-require 'includes/header.php'; 
+
 
 
 
