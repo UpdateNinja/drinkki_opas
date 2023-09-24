@@ -19,21 +19,41 @@ require 'includes/header.php';
             <h1>Lisää juoma</h1>
         </div>
 
-        <div class="row">
-    <div class="col">
-        <!-- Add this element for image preview -->
-        <div style="width: 100%; height: 100%; border: 2px solid black; position: relative;" class="rounded">
-            <img id="imagePreview" src="#" alt="Image Preview" style="max-width: 100%; height: 90%; position: absolute; top: 0; left: 0; display:none;" class="rounded">
-            <input type="file" class="form-control" accept=".jpeg, .jpg, .bmp, .png" id="myfile" name="myfile" style="position: absolute; bottom: 0; left: 0; width: 100%; height:10%;" onchange="readImage(this)">
+        <div>
+            <?php
+            if (!isset($_SESSION['username'])) {
+            ?>
+                <div class="alert alert-danger" role="alert">
+                    Voit lisätä juoman kirjautumalla sisään!
+                </div>
+                
+            <?php
+            $disabled ='disabled';
+            }else{
+                $disabled='';
+            }
+            ?>
         </div>
-    </div>
-    <div class="col">
-        <input type="text" class="form-control" id="fname" name="fname" placeholder="Juoman nimi">
-        <textarea id="receipt" class="form-control" name="receipt" rows="12" cols="50" placeholder="Kirjoita juoman resepti"></textarea>
-        <div id="uploadResult"></div>
-        <button id="send_new_drink" class="form-control" onclick="sendnewDrink()">Lisää juoma</button>
-    </div>
-</div>
+
+        <div class="row">
+            <div class="col">
+                <!-- Add this element for image preview -->
+                <div style="width: 100%; height: 100%; border: 2px solid black; position: relative;" class="rounded">
+                    <img id="imagePreview" src="#" alt="Image Preview" style="max-width: 100%; height: 90%; position: absolute; top: 0; left: 0; display:none;" class="rounded">
+                    <input type="file" class="form-control" accept=".jpeg, .jpg, .bmp, .png" id="myfile" name="myfile" onchange="readImage(this)" hidden>
+                    <button type="button" class="btn btn-primary form-control" style="position: absolute; bottom: 0; left: 0; width: 100%; height:10%;" onclick="document.getElementById('myfile').click();">Lisää kuva juomasta</button>
+                </div>
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" id="fname" name="fname" placeholder="Juoman nimi">
+                <textarea id="receipt" class="form-control" name="receipt" rows="12" cols="50" placeholder="Kirjoita juoman resepti"></textarea>
+                <div id="uploadResult"></div>
+                <div class="d-flex justify-content-center align-items-center mt-3">
+            <button id="send_new_drink" class="btn btn-primary" <?php echo $disabled ?> style="width: 50%;">Lisää juoma</button>
+        </div>
+                
+            </div>
+        </div>
 
 
 

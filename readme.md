@@ -26,3 +26,7 @@ Login logic for users and $session test
 Code cleaning, combining drink upload function.
 Added php session logic for users and debugging problems.
 Drink image preview function into add new drink site.
+
+1.10
+Adding more login and logout logic.
+Changed login in popup form.

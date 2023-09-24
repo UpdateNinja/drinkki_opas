@@ -48,6 +48,9 @@ if (!preg_match($pattern, $username)) {
             //Regenerating new session id after success login - > to add more security for page.
             session_regenerate_id(true);
             $_SESSION['username'] = $username;
+
+            
+
         } else {
             $error.= "Käyttäjä tai salasana on väärin.";
         }

@@ -1,14 +1,16 @@
 <?php
-// Start or resume the session
 session_start();
-
-// Unset all session variables
 session_unset();
-
-// Destroy the session
 session_destroy();
 
-// Redirect the user to a desired page after logout
-header("Location: ../index.php"); // Replace "index.php" with the desired page
+// Check if a redirect URL was provided as a query parameter
+if (isset($_GET['redirect'])) {
+    $redirectURL = urldecode($_GET['redirect']);
+    header("Location: $redirectURL");
+} else {
+    // If no redirect URL is provided, you can redirect to a default page
+    header("Location: ../index.php");
+}
+
 exit();
 ?>

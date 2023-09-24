@@ -1,7 +1,7 @@
 <?php
 // Start the session (if not already started)
 if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+  session_start();
 }
 ?>
 
@@ -13,6 +13,7 @@ if (session_status() === PHP_SESSION_NONE) {
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="/src/public/css/styling.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
 
 <meta charset="utf-8">
@@ -198,20 +199,32 @@ if (session_status() === PHP_SESSION_NONE) {
         </ul>
         <ul class="nav ">
 
-          <?php
-          if (isset($_SESSION['username'])) {
-            echo $_SESSION['username'] . session_id();
-          ?>
-            <li class="nav-item"><a href="http://localhost/src/public/includes/logout.php" class="nav-link link-body-emphasis px-2">Kirjaudu ulos</a></li>
-          <?php
-          } else {
-            echo session_id();
-          ?>
-            <li class="nav-item"><a href="http://localhost/src/public/login_page.php" class="nav-link link-body-emphasis px-2">Kirjaudu</a></li>
-            <li class="nav-item"><a href="http://localhost/src/public/register_page.php" class="nav-link link-body-emphasis px-2">Rekisteröidy</a></li>
-          <?php
-          }
-          ?>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+
+            <?php
+            if (isset($_SESSION['username'])) {
+              echo $_SESSION['username'] . session_id();
+            ?>
+              <button type="button" onclick="window.location.href='http://localhost/src/public/includes/logout.php'" class="btn btn-primary">
+                Oma tili
+              </button>
+              <button type="button" onclick="logout()" class="btn btn-danger">
+                Kirjaudu ulos
+              </button>
+            <?php
+            } else {
+              echo session_id();
+            ?>
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Kirjaudu sisään
+              </button>
+              <li class="nav-item"><a href="http://localhost/src/public/register_page.php" class="nav-link link-body-emphasis px-2">Rekisteröidy</a></li>
+            <?php
+            }
+            ?>
+
+          </div>
+
 
 
         </ul>
@@ -232,6 +245,103 @@ if (session_status() === PHP_SESSION_NONE) {
     </header>
 
   </main>
+
+  <!-- Button trigger modal -->
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Kirjaudu sisään</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="username" class="form-label">Käyttäjänimi</label>
+              <input type="text" class="form-control" id="username">
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Salasana</label>
+              <input type="password" class="form-control" id="password">
+            </div>
+          </form>
+        </div>
+        <div id="resultMessage"></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sulje</button>
+          <button type="button" class="btn btn-primary" onclick="login()">Kirjaudu sisään</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>
+
+<script>
+  var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {
+    keyboard: false
+  })
+
+  function login() {
+
+    //Get username from input element "username"
+    var user_name_element = document.getElementById("username");
+    var user_name = user_name_element.value;
+
+    //Get password from input element "password"
+    var password_element = document.getElementById("password");
+    var password = password_element.value;
+
+    var data = {
+
+      username: user_name,
+      password: password,
+
+
+
+    };
+
+    fetch('includes/login.php', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => response.text())
+      .then(data => {
+        console.log('Response from server:', data);
+        var resultMessageElement = document.getElementById("resultMessage");
+        resultMessageElement.innerHTML = data;
+
+        if (data == "Kirjautuminen onnistui.") {
+
+          myModal.hide()
+
+          console.log('juu');
+          window.location.reload();
+
+        }
+
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+
+
+
+
+  }
+
+  function logout() {
+    // Get the current URL
+    var currentURL = window.location.href;
+
+    // Redirect to logout.php with the current page URL as a parameter
+    window.location.href = 'includes/logout.php?redirect=' + encodeURIComponent(currentURL);
+  }
+</script>
