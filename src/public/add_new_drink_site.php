@@ -1,5 +1,6 @@
 <?php
 require 'includes/header.php';
+$username = 'Käyttäjänimi';
 ?>
 
 <head>
@@ -23,14 +24,21 @@ require 'includes/header.php';
             <?php
             if (!isset($_SESSION['username'])) {
             ?>
-                <div class="alert alert-danger" role="alert">
+                <div id="AlertMessage" class="alert alert-danger" role="alert">
                     Voit lisätä juoman kirjautumalla sisään!
                 </div>
-                
+
             <?php
-            $disabled ='disabled';
-            }else{
-                $disabled='';
+                
+                $disabled = 'disabled';
+            } else {
+                $username = $_SESSION['username'];
+                $disabled = '';
+                ?>
+                <div id="AlertMessage" class="alert alert-success" role="alert">
+                    Olet kirjautunut sisään käyttäjällä : <?php echo $_SESSION['username'] ?>
+                </div>
+                <?
             }
             ?>
         </div>
@@ -45,13 +53,14 @@ require 'includes/header.php';
                 </div>
             </div>
             <div class="col">
+                <input class="form-control" id="show_username" type="text" placeholder="<?php echo $username ?>" readonly>
                 <input type="text" class="form-control" id="fname" name="fname" placeholder="Juoman nimi">
                 <textarea id="receipt" class="form-control" name="receipt" rows="12" cols="50" placeholder="Kirjoita juoman resepti"></textarea>
                 <div id="uploadResult"></div>
                 <div class="d-flex justify-content-center align-items-center mt-3">
-            <button id="send_new_drink" class="btn btn-primary" <?php echo $disabled ?> style="width: 50%;">Lisää juoma</button>
-        </div>
-                
+                    <button id="send_new_drink" class="btn btn-primary" onclick="sendnewDrink()" <?php echo $disabled ?> style="width: 50%;">Lisää juoma</button>
+                </div>
+
             </div>
         </div>
 
@@ -89,11 +98,6 @@ require 'includes/header.php';
         formData.append("myfile", $("#myfile")[0].files[0]);
         formData.append("name", drink_name);
         formData.append("descr", receipt);
-
-        var data = {
-            name: drink_name,
-            descr: receipt,
-        };
 
         // Send the file data to the server using AJAX
         $.ajax({

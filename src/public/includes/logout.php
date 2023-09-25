@@ -1,6 +1,10 @@
 <?php
 session_start();
-session_unset();
+
+$_SESSION = array();
+
+session_regenerate_id(true);
+
 session_destroy();
 
 // Check if a redirect URL was provided as a query parameter

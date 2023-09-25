@@ -30,3 +30,7 @@ Drink image preview function into add new drink site.
 1.10
 Adding more login and logout logic.
 Changed login in popup form.
+
+1.11
+Added timestamps for adding new drink
+Only logged in user can add drink

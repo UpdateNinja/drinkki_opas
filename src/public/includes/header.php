@@ -201,27 +201,40 @@ if (session_status() === PHP_SESSION_NONE) {
 
           <div class="d-grid gap-2 d-md-flex justify-content-md-end">
 
+            
             <?php
+            
             if (isset($_SESSION['username'])) {
               echo $_SESSION['username'] . session_id();
-            ?>
-              <button type="button" onclick="window.location.href='http://localhost/src/public/includes/logout.php'" class="btn btn-primary">
-                Oma tili
-              </button>
-              <button type="button" onclick="logout()" class="btn btn-danger">
-                Kirjaudu ulos
-              </button>
-            <?php
+              $loggedIn=true;
             } else {
               echo session_id();
+              $loggedIn=false;
+            }
+
+            if($loggedIn){
+              $showHeaderLoggedIn="block";
+              $showHeaderNonLoggedIn="none";
+            }else{
+              $showHeaderLoggedIn="none";
+              $showHeaderNonLoggedIn="block";
+            }
+
             ?>
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+              <button type="button" id="mypage_button" onclick="window.location.href='http://localhost/src/public/includes/logout.php'" class="btn btn-primary" style="display:<?php echo $showHeaderLoggedIn ?>" ;>
+                Oma tili
+              </button>
+              <button type="button" id="logout_button" onclick="logout()" class="btn btn-danger" style="display:<?php echo $showHeaderLoggedIn ?>">
+                Kirjaudu ulos
+              </button>
+
+              <button type="button" id="login_button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="display:<?php echo $showHeaderNonLoggedIn ?>";>
                 Kirjaudu sisään
               </button>
-              <li class="nav-item"><a href="http://localhost/src/public/register_page.php" class="nav-link link-body-emphasis px-2">Rekisteröidy</a></li>
-            <?php
-            }
-            ?>
+              <li class="nav-item"><a href="http://localhost/src/public/register_page.php" id="register_button" class="nav-link link-body-emphasis px-2" style="display:<?php echo $showHeaderNonLoggedIn ?>";>Rekisteröidy</a></li>
+           
+           
 
           </div>
 
