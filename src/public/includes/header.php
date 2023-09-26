@@ -24,7 +24,6 @@ if (session_status() === PHP_SESSION_NONE) {
 <link rel="apple-touch-icon" href="/docs/5.3/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
 <link rel="icon" href="/docs/5.3/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/docs/5.3/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-<link rel="manifest" href="/docs/5.3/assets/img/favicons/manifest.json">
 <link rel="mask-icon" href="/docs/5.3/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
 <link rel="icon" href="/docs/5.3/assets/img/favicons/favicon.ico">
 <meta name="theme-color" content="#712cf9">
@@ -282,7 +281,7 @@ if (session_status() === PHP_SESSION_NONE) {
             </div>
           </form>
         </div>
-        <div id="resultMessage"></div>
+        <div id="resultMessage_login"></div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sulje</button>
           <button type="button" class="btn btn-primary" onclick="login()">Kirjaudu sisään</button>
@@ -328,7 +327,7 @@ if (session_status() === PHP_SESSION_NONE) {
       .then(response => response.text())
       .then(data => {
         console.log('Response from server:', data);
-        var resultMessageElement = document.getElementById("resultMessage");
+        var resultMessageElement = document.getElementById("resultMessage_login");
         resultMessageElement.innerHTML = data;
 
         if (data == "Kirjautuminen onnistui.") {

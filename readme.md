@@ -34,3 +34,7 @@ Changed login in popup form.
 1.11
 Added timestamps for adding new drink
 Only logged in user can add drink
+
+1.12
+Fixing register and login page resultmessage bug.
+Registerpage UI
