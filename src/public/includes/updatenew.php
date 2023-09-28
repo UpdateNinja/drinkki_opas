@@ -1,4 +1,5 @@
 <?php
+session_start();
 $servername = "drinkki_opas-db-1";
 $username = "php_docker";
 $password = "password";
@@ -18,7 +19,7 @@ $data = json_decode(file_get_contents("php://input")); // Get JSON data from req
 $id = $conn->real_escape_string($data->id); // Replace with the desired ID
 $rating = $conn->real_escape_string($data->rating); // Replace with the desired rating
 $comment = $conn->real_escape_string($data->review_comment); // Replace with the desired comment
-$username = $conn->real_escape_string($data->name); // Replace with the desired username
+$username = $_SESSION['username'];
 
 // Prepare the INSERT statement
 

@@ -28,58 +28,84 @@ if (isset($_POST['input'])) {
             $result = mysqli_stmt_get_result($stmt);
 
             if (mysqli_num_rows($result) > 0) {
-?>
+                ?>
                 <div>
-                <table class="table table-bordered table-striped modern-table">
-                    <thead>
-                        <tr>
-                            <th class="rounded-start" style="width: 10%;">Numero</th>
-                            <th style="width: 20%;">Kuva</th>
-                            <th style="width: 10%;">Juoma</th>
-                            <th style="width: 20%;">Ohjeet</th>
-                            <th style="width: 40%;" class="rounded-end">Arvosana</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            $search_list[] = new Drink($row['id'], $row['drink_name'],$row['image_url'], $row['descr']);
-
-                            
-
-                        }
-
-                        foreach ($search_list as $drink) {
-                        ?>
-
-                        
-
-                            <tr class="drink" id=<?php echo $drink->get_id() ?>>
-                                <td><?php echo $drink->get_id() ?></td>
-                                <th><img src="<?php echo $drink->get_image_url() ?>" alt="Image Alt Text" class="table-image"></th>
-                                <td><?php echo $drink->get_name() ?></td>
-                                <td><?php echo $drink->get_instruction() ?></td>
-                                
-                                <td>
-                                    <?php getStarRating($drink->get_id(), $con); ?>
-                                    <button style="margin-top:10px" class="btn btn-outline-success" ; onclick="openPopup('<?php echo $drink->get_name() ?>')" id="<?php echo $drink->get_id() ?>">Anna arvostelu</button>
-                                </td>
-                                <!-- Button to trigger the pop-up -->
-
+                    <table class="table table-bordered table-striped modern-table">
+                        <thead>
+                            <tr>
+                                <th class="rounded-start" style="width: 10%;">Numero</th>
+                                <th style="width: 20%;">Kuva</th>
+                                <th style="width: 10%;">Juoma</th>
+                                <th style="width: 20%;">Ohjeet</th>
+                                <th style="width: 40%;" class="rounded-end">Arvosana</th>
                             </tr>
-
-                        <?php
-                            
-
-                        }
-
-                        ?>
+                        </thead>
+                        <tbody>
+                            <?php
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $search_list[] = new Drink($row['id'], $row['drink_name'], $row['image_url'], $row['descr']);
 
 
-                    </tbody>
-                </table>
+
+                            }
+
+                            foreach ($search_list as $drink) {
+                                ?>
+
+
+
+                                <tr class="drink" id=<?php echo $drink->get_id() ?>>
+                                    <td>
+                                        <?php echo $drink->get_id() ?>
+                                    </td>
+                                    <th><img src="<?php echo $drink->get_image_url() ?>" alt="Image Alt Text" class="table-image"></th>
+                                    <td>
+                                        <?php echo $drink->get_name() ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $drink->get_instruction() ?>
+                                    </td>
+
+                                    <td>
+                                        <?php getStarRating($drink->get_id(), $con); ?>
+
+                                        <?php if (!isset($_SESSION['username'])) {
+
+                                            ?>
+
+                                            <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Kirjaudu sisään ja anna arvostelu">
+                                                <button class="btn btn-primary" style="pointer-events: none;" type="button" disabled>Anna arvostelu</button>
+                                            </span>
+                                            <?php
+
+                                        } else {
+                                            $username = $_SESSION['username'];
+                                            ?>
+                                            <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Lisää arvostelu juomalle">
+                                                <button class="btn btn-primary" type="button"; onclick="openPopup('<?php echo $drink->get_name() ?>')" id="<?php echo $drink->get_id() ?>">Anna arvostelu</button>
+                                            </span>
+                                            <?php
+                                        }
+                                        ?>
+
+                                       
+                                    </td>
+                                    <!-- Button to trigger the pop-up -->
+
+                                </tr>
+
+                                <?php
+
+
+                            }
+
+                            ?>
+
+
+                        </tbody>
+                    </table>
                 </div>
-<?php
+                <?php
             } else {
                 echo "<h6 class='text-center mt-3'>Ei ole!</h6>";
             }
@@ -107,14 +133,14 @@ if (isset($_POST['input'])) {
         <p>Arvostele drinkki : <span id="buttonIdPlaceholder"></p>
 
         <label for="fname">Nimi:</label><br>
-        <input type="text" id="fname" name="fname"><br>
+        <input class="form-control" id="show_username" type="text" placeholder="<?php echo $username ?>" readonly>
 
-        <label for="comment">Kommentti:</label><br>
+        <textarea id="comment" class="form-control" name="receipt" rows="12" cols="50" placeholder="Kirjoita juoman resepti"></textarea>
 
-        <textarea id="comment" name="comment" rows="4" cols="50"></textarea><br>
+        
 
         <?php place_star_rating(0, true); ?>
-        <button id="review_send" onclick="sendReview()">Lähetä arvostelu</button>
+        <button id = "review_send" class="btn btn-primary" type="button"; onclick="sendReview()">Lähetä arvostelu</button>
         <span onclick="closePopup()" class="close-button topright">&times</span>
     </div>
 
@@ -131,8 +157,8 @@ if (isset($_POST['input'])) {
         var isClicked = false;
 
 
-        invisibleRects.forEach(function(invisibleRect, index) {
-            invisibleRect.addEventListener('click', function() {
+        invisibleRects.forEach(function (invisibleRect, index) {
+            invisibleRect.addEventListener('click', function () {
                 console.log('Clicked on star at index:', index);
                 console.log("drink row id: ", buttonId);
                 isClicked = true;
@@ -153,8 +179,8 @@ if (isset($_POST['input'])) {
 
 
 
-        invisibleRects.forEach(function(invisibleRect, index) {
-            invisibleRect.addEventListener('mouseover', function() {
+        invisibleRects.forEach(function (invisibleRect, index) {
+            invisibleRect.addEventListener('mouseover', function () {
 
                 if (isClicked == false) {
                     console.log('Mouse entered:', index);
@@ -166,7 +192,7 @@ if (isset($_POST['input'])) {
                 }
             });
 
-            invisibleRect.addEventListener('mouseout', function() {
+            invisibleRect.addEventListener('mouseout', function () {
                 if (isClicked == false) {
 
                     console.log('Mouse left:', index);
@@ -207,10 +233,6 @@ if (isset($_POST['input'])) {
         function sendReview() {
             // Hide the pop-up and overlay
 
-            var fname_element = document.querySelector('#fname')
-            var fname = fname_element.value;
-            console.log(fname);
-
             var comment_element = document.querySelector('#comment');
             var comment = comment_element.value;
             console.log(comment);
@@ -218,18 +240,17 @@ if (isset($_POST['input'])) {
             var data = {
                 rating: rating_number,
                 id: buttonId,
-                name: fname,
                 review_comment: comment,
 
             };
 
             fetch('includes/updatenew.php', {
-                    method: 'POST',
-                    body: JSON.stringify(data),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                })
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
                 .then(response => response.text())
                 .then(data => {
                     console.log('Response from server:', data);

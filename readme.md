@@ -38,3 +38,7 @@ Only logged in user can add drink
 1.12
 Fixing register and login page resultmessage bug.
 Registerpage UI
+
+1.13
+Updating review send function.
+Only loggedin user can send review. -> Add check on server side.
