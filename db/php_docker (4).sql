@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db:3306
--- Generation Time: 28.09.2023 klo 19:09
+-- Generation Time: 01.10.2023 klo 13:01
 -- Palvelimen versio: 8.1.0
 -- PHP Version: 8.2.8
 
@@ -64,7 +64,8 @@ CREATE TABLE `reviews` (
 --
 
 INSERT INTO `reviews` (`review_id`, `drink_id`, `review_rating`, `review_comment`, `review_user`, `approved`) VALUES
-(27, 17, 3, 'Oli ihan ok', 'testaaja4', 1);
+(27, 17, 3, 'Oli ihan ok', 'testaaja4', 1),
+(28, 17, 3, 'joopa joo', 'testaaja5', 0);
 
 -- --------------------------------------------------------
 
@@ -77,19 +78,28 @@ CREATE TABLE `users` (
   `username` varchar(25) NOT NULL,
   `email` varchar(25) NOT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `hashedpassword` varchar(255) NOT NULL
+  `hashedpassword` varchar(255) NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '0',
+  `activation_code` varchar(255) DEFAULT NULL,
+  `activation_expiry` datetime DEFAULT NULL,
+  `activated_at` datetime DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Vedos taulusta `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `password`, `hashedpassword`) VALUES
-(18, 'testaaja', 'heheheheheh@gmail.com', 'testi124!R', '$2y$10$jkd.lYODR0.aS3qL3XGnb.GDD2qsCN6.EQEC1D5YiZHtafd6PSKL2'),
-(19, 'testaaja2', 'testi@gmail.com', 'testtest123!A!', '$2y$10$qRC3ZZZw76opunBN8OburOF7fT2hNuBnQuVkVInNWXM5BTQWG3YD.'),
-(22, 'testaaja3', 'testi2@gmail.com', 'osososORORORO1!', '$2y$10$bccPRLeKvjSOBQ5SARFQ1.IdmKLg9hAsA2T6Ucx/eSnyt5MhfJT6C'),
-(24, 'testaaja4', 'testaaja4@gmail.com', 'moiMOI321!x', '$2y$10$lrZyeEfGeghBZLRQhy5d9uLumQdMTyFexuX27eu6uF2FNsdGu2/sq'),
-(25, 'testaaja5', 'testaaja5@gmail.com', 'moiMOI321!x', '$2y$10$fkKBExuWJjYDaElbjysfBOMYMkweJsM7e1n.wF6/wmMXaIXtbZnPa');
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `hashedpassword`, `active`, `activation_code`, `activation_expiry`, `activated_at`, `created_at`, `updated_at`) VALUES
+(18, 'testaaja', 'heheheheheh@gmail.com', 'testi124!R', '$2y$10$jkd.lYODR0.aS3qL3XGnb.GDD2qsCN6.EQEC1D5YiZHtafd6PSKL2', 0, NULL, NULL, NULL, '2023-10-01 12:38:16', '2023-10-01 12:38:16'),
+(19, 'testaaja2', 'testi@gmail.com', 'testtest123!A!', '$2y$10$qRC3ZZZw76opunBN8OburOF7fT2hNuBnQuVkVInNWXM5BTQWG3YD.', 0, NULL, NULL, NULL, '2023-10-01 12:38:16', '2023-10-01 12:38:16'),
+(22, 'testaaja3', 'testi2@gmail.com', 'osososORORORO1!', '$2y$10$bccPRLeKvjSOBQ5SARFQ1.IdmKLg9hAsA2T6Ucx/eSnyt5MhfJT6C', 0, NULL, NULL, NULL, '2023-10-01 12:38:16', '2023-10-01 12:38:16'),
+(24, 'testaaja4', 'testaaja4@gmail.com', 'moiMOI321!x', '$2y$10$lrZyeEfGeghBZLRQhy5d9uLumQdMTyFexuX27eu6uF2FNsdGu2/sq', 0, NULL, NULL, NULL, '2023-10-01 12:38:16', '2023-10-01 12:38:16'),
+(25, 'testaaja5', 'testaaja5@gmail.com', 'moiMOI321!x', '$2y$10$fkKBExuWJjYDaElbjysfBOMYMkweJsM7e1n.wF6/wmMXaIXtbZnPa', 1, NULL, NULL, '2023-10-01 13:01:02', '2023-10-01 12:38:16', '2023-10-01 12:38:16'),
+(30, 'testaaja323232', 'testaja424242@gmail.com', 'satsisutsi12!\\\"A', '$2y$10$AcsPaaiuw9v81tmK.kmFoOfKtzJqIAoOr6NmF4wtIiooLx6LfsyH.', 0, NULL, NULL, NULL, '2023-10-01 12:38:16', '2023-10-01 12:38:16'),
+(31, 'testaaja4232', 'testaaj232a5@gmail.com', 'satsisutsi12!\\\"A', '$2y$10$SaDEvKlPDeFilk3hWRtfGeGWYPofAsWkyMWuJQxVtyqsMhMoqpKce', 0, 'asdasd', '2023-10-02 12:46:16', NULL, '2023-10-01 12:46:16', '2023-10-01 12:46:16'),
+(32, 'testaaja43232', 'testaaja23232@gmail.com', 'satsisutsi12!\\\"A', '$2y$10$dMriWbVlCKB6X6xIy/XKvOKk7RVYzFFSc7EPc1kUnawrhY/bAgpm.', 0, 'asdasd', '2023-10-02 12:47:11', NULL, '2023-10-01 12:47:11', '2023-10-01 12:47:11');
 
 --
 -- Indexes for dumped tables
@@ -127,13 +137,13 @@ ALTER TABLE `drinks`
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `review_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `review_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

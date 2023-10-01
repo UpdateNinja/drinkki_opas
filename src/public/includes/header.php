@@ -273,8 +273,8 @@ if (session_status() === PHP_SESSION_NONE) {
         <div class="modal-body">
           <form>
             <div class="mb-3">
-              <label for="username" class="form-label">Käyttäjänimi</label>
-              <input type="text" class="form-control" id="username">
+              <label for="email" class="form-label">Sähköposti</label>
+              <input type="text" class="form-control" id="email">
             </div>
             <div class="mb-3">
               <label for="password" class="form-label">Salasana</label>
@@ -302,8 +302,8 @@ if (session_status() === PHP_SESSION_NONE) {
   function login() {
 
     //Get username from input element "username"
-    var user_name_element = document.getElementById("username");
-    var user_name = user_name_element.value;
+    var email_element = document.getElementById("email");
+    var email = email_element.value;
 
     //Get password from input element "password"
     var password_element = document.getElementById("password");
@@ -311,7 +311,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
     var data = {
 
-      username: user_name,
+      email: email,
       password: password,
 
 

@@ -70,13 +70,18 @@ if (!empty($error)){
 
 // Prepare the INSERT statement
 
-$sql = "INSERT INTO users (username,email,password,hashedpassword) VALUES (?,?,?,?)";
+$sql = "INSERT INTO users (username,email,password,hashedpassword,activation_code,activation_expiry) VALUES (?,?,?,?,?,?)";
 
 // Create a prepared statement
 $stmt = $conn->prepare($sql);
 
+$activation_code="asdasd";
+$expiry = 1 * 24  * 60 * 60;
+
+$activation_expiry = date('Y-m-d H:i:s',  time() + $expiry);
+
 // Bind the parameters and set their values
-$stmt->bind_param("ssss",$username,$email,$password,$hashedPassword);
+$stmt->bind_param("ssssss",$username,$email,$password,$hashedPassword,$activation_code,$activation_expiry);
 
 // Execute the statement
 if ($stmt->execute()) {

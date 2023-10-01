@@ -42,3 +42,7 @@ Registerpage UI
 1.13
 Updating review send function.
 Only loggedin user can send review. -> Add check on server side.
+
+1.14
+Added password confirmation javascript.
+Prototyping new account registering verification. Activate.php

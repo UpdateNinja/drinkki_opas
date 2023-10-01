@@ -20,13 +20,13 @@ $error = '';
 
 // Define the data to be inserted
 
-$username = $conn->real_escape_string($data->username); // Replace with the desired username
+$email = $conn->real_escape_string($data->email); // Replace with the desired username
 $password = $conn->real_escape_string($data->password); // Replace with the desired username
 
 $pattern = '/^[a-zA-Z0-9]{5,}$/';
 
-if (!preg_match($pattern, $username)) {
-    $error .= "Käyttäjänimi on virheellinen <br>";
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $error .= "Sähköposti on virheellinen <br>";
 } elseif (strlen($password) < 8) {
     $error .= "Salasanan pitää olla vähintään 8 merkkiä.";
 } elseif (!preg_match('/[A-Z]/', $password) || !preg_match('/[a-z]/', $password) || !preg_match('/[0-9]/', $password) || !preg_match('/[^A-Za-z0-9]/', $password)) {
@@ -36,11 +36,11 @@ if (!preg_match($pattern, $username)) {
 } else {
 
 
-    $query = "SELECT hashedpassword FROM users WHERE username = ?";
+    $query = "SELECT username,hashedpassword FROM users WHERE email = ?";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("s", $username);
+    $stmt->bind_param("s", $email);
     $stmt->execute();
-    $stmt->bind_result($hashedPasswordFromDatabase);
+    $stmt->bind_result($username,$hashedPasswordFromDatabase);
     if ($stmt->fetch()) {
         if (password_verify($password, $hashedPasswordFromDatabase)) {
             $error.= "Kirjautuminen onnistui.";

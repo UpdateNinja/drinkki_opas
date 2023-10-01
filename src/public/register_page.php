@@ -90,7 +90,7 @@ body {
             <input type="password" class="form-control" id="password_register" name="password" placeholder="Salasana" required="required">
         </div>
 		<div class="form-group">
-            <input type="password" class="form-control" name="confirm_password" placeholder="Vahvista salasana" required="required">
+            <input type="password" class="form-control" id="password_register_confirm" name="confirm_password" placeholder="Vahvista salasana" required="required">
         </div>        
 
         <div id="resultMessage_register"></div>
@@ -138,6 +138,16 @@ body {
         //Get password from input element "password"
         var password_element = document.getElementById("password_register");
         var password = password_element.value;
+        
+        //Get passwordconfirm from input element "passwordconfirm"
+        var password_confirm_element = document.getElementById("password_register_confirm");
+        var password_confirm = password_confirm_element.value;
+
+        if (password_confirm!=password){
+            console.error('Error: Passwords doesnt match');
+            resultMessageElement.innerHTML = "Passwords doesn't match";
+            return;
+        }
 
         var data = {
 
