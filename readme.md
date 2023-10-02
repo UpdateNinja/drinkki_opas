@@ -46,3 +46,7 @@ Only loggedin user can send review. -> Add check on server side.
 1.14
 Added password confirmation javascript.
 Prototyping new account registering verification. Activate.php
+
+1.15
+Activation code prototyping.
+Login allowed only if user is activated using activate.php. -> Add mailer for activation.

@@ -1,9 +1,10 @@
 <?php
-session_start();
 $servername = "drinkki_opas-db-1";
 $username = "php_docker";
 $password = "password";
 $dbname = "php_docker";
+
+$active = 1;
 
 // Create a connection to the MySQL database
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -13,27 +14,43 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+if (isset($_GET['email']) && isset($_GET['activation_code'])) {
+    $email = $_GET['email'];
+    $providedactivation_code = $_GET['activation_code'];
 
-// Prepare the INSERT statement
+    $sql = "SELECT activation_code FROM users WHERE email = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-$username = "testaaja5";
-$active = 1;
+    if ($result->num_rows === 1) {
 
-$sql = "UPDATE users set active = ?, activated_at = CURRENT_TIMESTAMP where username=?";
+        $row = $result->fetch_assoc();
+        $storedActivationCodeHash = $row['activation_code'];
 
-// Create a prepared statement
-$stmt = $conn->prepare($sql);
+        if (password_verify($providedactivation_code, $storedActivationCodeHash)) {
+            $updateSql = "UPDATE users set active = 1, activated_at = CURRENT_TIMESTAMP WHERE email = ?";
+            $updateStmt = $conn->prepare($updateSql);
+            $updateStmt->bind_param("s", $email);
+            $updateStmt->execute();
 
-$stmt->bind_param("is", $active, $username);
+            if ($updateStmt->affected_rows === 1) {
+                echo "Activation succesful. Your account is now active.";
+            } else {
+                echo "Activation faile. Please try again later.";
+            }
 
-// Execute the statement
-if ($stmt->execute()) {
-    echo "New record inserted successfully.";
+        } else {
+            echo "Invalid activation code.";
+        }
+    } else {
+        "invalid email";
+    }
+
+    $conn->close();
+
 } else {
-    echo "Error: " . $stmt->error;
-}
+    echo "Email or activation code not found in the URL";
 
-// Close the prepared statement and the database connection
-$stmt->close();
-$conn->close();
-?>
+}

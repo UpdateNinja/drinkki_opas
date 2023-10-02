@@ -328,16 +328,19 @@ if (session_status() === PHP_SESSION_NONE) {
       .then(response => response.text())
       .then(data => {
         console.log('Response from server:', data);
-        var resultMessageElement = document.getElementById("resultMessage_login");
-        resultMessageElement.innerHTML = data;
+        
+        
 
-        if (data == "Kirjautuminen onnistui.") {
+        if (data == "OK") {
 
           myModal.hide()
 
           console.log('juu');
           window.location.reload();
 
+        }else{
+          var resultMessageElement = document.getElementById("resultMessage_login");
+          resultMessageElement.innerHTML = data;
         }
 
       })

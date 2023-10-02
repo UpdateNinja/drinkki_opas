@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 
 $servername = "drinkki_opas-db-1";
@@ -36,29 +35,37 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 } else {
 
 
-    $query = "SELECT username,hashedpassword FROM users WHERE email = ?";
+    $query = "SELECT username,hashedpassword,active FROM users WHERE email = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("s", $email);
     $stmt->execute();
-    $stmt->bind_result($username,$hashedPasswordFromDatabase);
+    $stmt->bind_result($username, $hashedPasswordFromDatabase, $activate);
+
+
+
     if ($stmt->fetch()) {
-        if (password_verify($password, $hashedPasswordFromDatabase)) {
-            $error.= "Kirjautuminen onnistui.";
 
-            //Regenerating new session id after success login - > to add more security for page.
-            session_regenerate_id(true);
-            $_SESSION['username'] = $username;
+        if ($activate == 1) {
 
-            
+            if (password_verify($password, $hashedPasswordFromDatabase)) {
+                $error .= "OK";
 
+                //Regenerating new session id after success login - > to add more security for page.
+                session_regenerate_id(true);
+                $_SESSION['username'] = $username;
+
+
+
+            } else {
+                $error .= "Käyttäjä tai salasana on väärin.";
+            }
         } else {
-            $error.= "Käyttäjä tai salasana on väärin.";
+            $error .= "Käyttäjää ei ole vielä aktivoitu.";
         }
     } else {
-        $error.= "Käyttäjä tai salasana on väärin.";
+        $error .= "Käyttäjä tai salasana on väärin.";
     }
     $stmt->close();
 }
 
 echo $error;
-

@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 
 $servername = "drinkki_opas-db-1";
@@ -75,13 +74,14 @@ $sql = "INSERT INTO users (username,email,password,hashedpassword,activation_cod
 // Create a prepared statement
 $stmt = $conn->prepare($sql);
 
-$activation_code="asdasd";
+$activation_code = "lol123";
+$activation_code_hash = password_hash($activation_code,PASSWORD_DEFAULT);
 $expiry = 1 * 24  * 60 * 60;
 
 $activation_expiry = date('Y-m-d H:i:s',  time() + $expiry);
 
 // Bind the parameters and set their values
-$stmt->bind_param("ssssss",$username,$email,$password,$hashedPassword,$activation_code,$activation_expiry);
+$stmt->bind_param("ssssss",$username,$email,$password,$hashedPassword,$activation_code_hash,$activation_expiry);
 
 // Execute the statement
 if ($stmt->execute()) {
@@ -93,4 +93,10 @@ if ($stmt->execute()) {
 // Close the prepared statement and the database connection
 $stmt->close();
 $conn->close();
+}
+
+
+function generate_activation_code(): string
+{
+    return bin2hex(random_bytes(16));
 }

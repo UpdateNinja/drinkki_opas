@@ -1,5 +1,4 @@
 <?php
-
 // Store the file path in a session variable
 session_start();
 
